@@ -11,10 +11,19 @@ class Quality:
         return self.quality
 
 
-@dataclass()
+@dataclass
 class Season:
     name: str
     qualities: List[Quality]
 
     def __str__(self) -> str:
         return self.name
+
+
+@dataclass
+class Episode:
+    name: str
+    url: str
+
+    def __str__(self) -> str:
+        return f"{self.name} | {self.url}"
