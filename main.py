@@ -30,7 +30,9 @@ def main() -> None:
     season: Season = get_option("Choose your season", seasons)
     quality: Quality = get_option("Choose your quality", season.qualities)
     episodes = aio.grab_episodes(quality)
-    print(*episodes, sep="\n")
+
+    if args.print:
+        print(*episodes, sep="\n")
 
 
 if __name__ == '__main__':
