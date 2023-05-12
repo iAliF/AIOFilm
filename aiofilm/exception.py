@@ -1,0 +1,2 @@
+class AIOFilmException(Exception):
+    pass
