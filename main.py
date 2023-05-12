@@ -1,42 +1,43 @@
 import sys
-from urllib.parse import urlparse, urljoin
+from typing import List, Any
 
-import requests
-from bs4 import BeautifulSoup
+from aiofilm import AIOFilm, Season, Quality
 
 url = input("~ Enter your url: ") if len(args := sys.argv) < 2 else args[1]
-data = requests.get(url).text
-bs4 = BeautifulSoup(data, "html.parser")
 
-qualities = []
 
-print("Choose your quality:")
-for index, item in enumerate(bs4.find_all("li", {"class": "dlitems"})):
-    link = item.find_next("a")["href"]
-    quality = f"{link.split('/')[-1]}p"
-    print(f"{index + 1}. {quality}")
-    qualities.append(link)
+def get_option(message: str, iterable: List) -> Any:
+    print(
+        message,
+        *(f"{index + 1}. {item}" for index, item in enumerate(iterable)),
+        sep="\n"
+    )
+    while not ((opt := input("~ ")).isdigit() and 0 < (opt := int(opt)) <= len(seasons)):
+        print("Invalid option!")
 
-quality = input("~ ")
-if not (quality.isdigit() and 0 < (quality := int(quality)) <= len(qualities)):
-    print("Invalid option!")
-    exit()
+    return iterable[opt - 1]
 
-link = qualities[quality - 1]
 
-parse = urlparse(link)
-base = f"{parse.scheme}://{parse.netloc}"
+aio = AIOFilm()
+seasons = aio.find_seasons(url)
+season: Season = get_option("Choose your season", seasons)
+quality: Quality = get_option("Choose your quality", season.qualities)
+print(quality.url)
 
-data = requests.get(link).text
-bs4 = BeautifulSoup(data, "html.parser")
-
-for item in bs4.find_all("li"):
-    try:
-        name = item["data-name"]
-        href = urljoin(base, item["data-href"])
-        if not href.endswith(".mkv"):
-            continue
-        print(name, href, sep=" | ")
-    except KeyError:
-        pass
-
+# parse = urlparse(link)
+# base = f"{parse.scheme}://{parse.netloc}"
+#
+# data = requests.get(link).text
+# bs4 = BeautifulSoup(data, "html.parser")
+#
+# for item in bs4.find_all("li"):
+#     try:
+#         name = item["data-name"]
+#         href = urljoin(base, item["data-href"])
+#         if not href.endswith(".mkv"):
+#             continue
+#         print(name, href, sep=" | ")
+#     except KeyError:
+#         pass
+#
+#
