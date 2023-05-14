@@ -51,7 +51,12 @@ def main() -> None:
                 args.folder,
                 episode.name,
                 3,
-                args.url)
+                args.url
+            )
+
+    elif args.save:
+        with open(args.output, "w") as file:
+            file.write("\n".join(ep.url for ep in episodes))
 
 
 if __name__ == '__main__':
