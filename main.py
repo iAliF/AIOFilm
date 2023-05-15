@@ -24,7 +24,7 @@ def main() -> None:
     group.add_argument("-d", "--download", action='store_true', help="Add links to idm")
     parser.add_argument("-f", "--folder", type=str, help="Download path")
     group.add_argument("-p", "--print", action='store_true', help="Print download links")
-    group.add_argument("-s", "--save", action='store_true', help="Save download links into file")
+    group.add_argument("-s", "--save", action='store_true', help="Save download links into a file")
     parser.add_argument("-o", "--output", type=str, help="Output file")
     args = parser.parse_args()
 
