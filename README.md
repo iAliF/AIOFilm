@@ -1,7 +1,6 @@
 # AIOFilm
 
-**AIOFilm** is a simple Python script to extract the AIOFilm website episodes link You can **save** them into a file, **
-add** them to the IDM download queue, or just see them in the console
+**AIOFilm** is a simple Python script to extract the AIOFilm website episodes link You can **save** them into a file, **add** them to the IDM download queue, or just see them in the console
 
 ## How to install
 
